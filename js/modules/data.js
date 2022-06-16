@@ -3,6 +3,9 @@ import { getRandomArr, getRandomFloat, getRandomItem, getRandomInt, getTwoDigitS
 const LOCATION_LAT = { from: 35.65000, to: 35.70000, };
 const LOCATION_LNG = { from: 139.70000, to: 139.80000, };
 const REALTY_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const MAX_ROOMS_COUNT = 5;
+const PRICE_RANGE = { min: 250, max: 50000 };
+const MAX_GUESTS_COUNT = 10;
 const CHECKIN_HOURS = ['12:00', '13:00', '14:00'];
 const CHECKOUT_HOURS = ['12:00', '13:00', '14:00'];
 const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
@@ -11,8 +14,7 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
-const BIG_DESCRIPTION = 'I am a big description string!';
-const CARDS_COUNT = 10;
+const DESCRIPTION_TEMPLATE = 'I am a big description string!';
 
 const getAutor = () => {
   const randomInt = getRandomInt(1, 10);
@@ -23,30 +25,30 @@ const getAutor = () => {
   };
 };
 
-const getOffer = () => {
-  const myPhotos = getRandomArr(PHOTOS);
+const getOffer = (locationLat, locationLng) => {
+  const descrTemplateLength = DESCRIPTION_TEMPLATE.length;
+  const subStrStart = getRandomInt(0, descrTemplateLength - 1);
+  const subStrEnd = getRandomInt(subStrStart, descrTemplateLength - 1);
 
   return {
-    title: `Self-chosen title`,
+    title: 'Self-chosen title',
     address: `${locationLat}, ${locationLng}`,
-    price: getRandomInt(1, 10),
+    price: getRandomInt(PRICE_RANGE.min, PRICE_RANGE.max),
     type: `${getRandomItem(REALTY_TYPES)}`,
-    rooms: getRandomInt(1, 5),
-    guests: getRandomInt(1, 2),
+    rooms: getRandomInt(1, MAX_ROOMS_COUNT),
+    guests: getRandomInt(1, MAX_GUESTS_COUNT),
     checkin: `${getRandomItem(CHECKIN_HOURS)}`,
     checkout: `${getRandomItem(CHECKOUT_HOURS)}`,
     features: getRandomArr(FEATURES),
-    description: 'Some description',
-    photos: myPhotos,
+    photos: getRandomArr(PHOTOS),
+    description: DESCRIPTION_TEMPLATE.substring(subStrStart, subStrEnd),
   };
 };
 
-const getLocation = (locationLat, locationLng) => {
-  return {
-    lat: locationLat,
-    lng: locationLng,
-  };
-};
+const getLocation = (locationLat, locationLng) => ({
+  lat: locationLat,
+  lng: locationLng,
+});
 
 const getCard = () => {
   const cardLocationLat = getRandomFloat(LOCATION_LAT.from, LOCATION_LAT.from, 5);
@@ -59,6 +61,4 @@ const getCard = () => {
   };
 };
 
-export const getCardsArr = (cardsCount) => {
-  return Array.from({length: cardsCount}, getCard);
-};
+export const getCardsArr = (cardsCount) => Array.from({ length: cardsCount }, getCard);

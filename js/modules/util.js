@@ -1,6 +1,6 @@
-const getRandom = (a, b) => {
-  const lower = Math.min(Math.abs(a), Math.abs(b));
-  const upper = Math.max(Math.abs(a), Math.abs(b));
+const getRandom = (num1, num2) => {
+  const lower = Math.min(Math.abs(num1), Math.abs(num2));
+  const upper = Math.max(Math.abs(num1), Math.abs(num2));
   const randomNum = Math.random() * (upper - lower + 1) + lower;
 
   return randomNum;
@@ -29,29 +29,28 @@ export const getTwoDigitStr = (num) => {
 };
 
 export const getRandomItem = (arr) => {
-  const randomIndex = getRandomNum(0, arr.length - 1);
+  const randomIndex = getRandomInt(0, arr.length - 1);
 
   return arr[randomIndex];
 };
 
 const getShuffledArr = (arr) => {
-  const array = arr;
-  for (let i = array.length - 1; i > 0; i--) {
+  const newArr = arr;
+
+  for (let i = newArr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+    const temp = newArr[i];
+    newArr[i] = newArr[j];
+    newArr[j] = temp;
   }
 
-  return array;
-};
-
-const getRandomArrItem = (arr) => {
-  return arr[getRandomInt(0, arr.length - 1)];
+  return newArr;
 };
 
 export const getRandomArr = (arr) => {
-  const randomLength = getRandom(1, arr.length);
+  const shuffledArr = getShuffledArr(arr);
+  const start = getRandomInt(0, shuffledArr.length - 1);
+  const myArr = shuffledArr.slice(start);
 
-  return Array.from({length: randomLength}, getRandomArrItem(arr));
+  return myArr;
 };
