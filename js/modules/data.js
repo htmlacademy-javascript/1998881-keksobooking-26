@@ -31,7 +31,7 @@ const getOffer = (locationLat, locationLng) => {
   const subStrEnd = getRandomInt(subStrStart, descrTemplateLength - 1);
 
   return {
-    title: 'Self-chosen title',
+    title: 'Self-chosen title.',
     address: `${locationLat}, ${locationLng}`,
     price: getRandomInt(PRICE_RANGE.min, PRICE_RANGE.max),
     type: `${getRandomItem(REALTY_TYPES)}`,
