@@ -8,12 +8,12 @@ const TYPE_TRANSLATIONS_OBJ = {
   hotel: 'Отель',
 };
 
-const hideEmpty = (updatedElems) => {
-  for (const dependencyArr of updatedElems) {
+const hideEmpty = (updatedElemsArr) => {
+  for (const dependencyArr of updatedElemsArr) {
     const [control, ...dataElemsArr] = dependencyArr;
 
     for (const dataElem of dataElemsArr) {
-      if (!dataElem) {
+      if (!dataElem && !control.node.classList.contains('hidden')) {
         control.node.classList.add('hidden');
       }
     }
@@ -124,7 +124,6 @@ const getCard = (cardDataObj) => {
 
   const popupPhotos = getPopupPhotos(offer.photos);
   popup.node.append(popupPhotos.node);
-
 
   const hidableElems = [
     [popupAvatar, author.avatar],
