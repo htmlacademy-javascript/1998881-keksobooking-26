@@ -88,31 +88,40 @@ const getCardNode = (cardDataObj) => {
     TYPE_TRANSLATIONS_OBJ[offer.type]
   );
 
-  const roomCapacity = offer.rooms && offer.guests && new Control(
+  const roomCapacity = new Control(
     popup.node,
     'p',
     'popup__text popup__text--capacity',
     `${offer.rooms} комнаты для ${offer.guests} гостей`
   );
+  if (!offer.rooms || !offer.guests) {
+    roomCapacity.node.classList.add('hidden');
+  }
 
-  const regTime = offer.checkin && offer.checkout && new Control(
+  const regTime = new Control(
     popup.node,
     'p',
     'popup__text popup__text--time',
     `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`
   );
+  if (!offer.checkin || !offer.checkout) {
+    regTime.node.classList.add('hidden');
+  }
 
   if (offer.features.length > 0) {
     const popupFeaturesNode = getPopupFeaturesNode(offer.features);
     popup.node.append(popupFeaturesNode);
   }
 
-  const popupDescription = offer.description && new Control(
+  const popupDescription = new Control(
     popup.node,
     'p',
     'popup__description',
     offer.description
   );
+  if (!offer.description) {
+    popupDescription.node.classList.add('hidden');
+  }
 
   if (offer.photos) {
     const popupPhotosNode = getPopupPhotosNode(offer.photos);
