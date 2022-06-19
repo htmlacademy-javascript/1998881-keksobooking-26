@@ -13,7 +13,7 @@
   },
   "types": [
     "node",
-    "webpack-env" // here
+    "webpack-env"
   ],
   "exclude": [
     "node_modules"
