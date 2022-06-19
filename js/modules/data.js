@@ -1,4 +1,4 @@
-import { getRandomArr, getRandomFloat, getRandomItem, getRandomInt, getTwoDigitStr } from './util.js';
+import { getRandomArr, getRandomFloat, getRandomItem, getRandomInt, getTwoDigitStr } from './util/helpers.js';
 
 const LOCATION_LAT = { from: 35.65000, to: 35.70000, };
 const LOCATION_LNG = { from: 139.70000, to: 139.80000, };
