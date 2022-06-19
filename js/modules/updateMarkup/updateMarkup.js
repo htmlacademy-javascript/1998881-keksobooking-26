@@ -8,7 +8,19 @@ const TYPE_TRANSLATIONS_OBJ = {
   hotel: 'Отель',
 };
 
-const getPopupFeaturesNode = (featuresArr) => {
+const hideEmpty = (updatedElems) => {
+  for (const dependencyArr of updatedElems) {
+    const [control, ...dataElemsArr] = dependencyArr;
+
+    for (const dataElem of dataElemsArr) {
+      if (!dataElem) {
+        control.node.classList.add('hidden');
+      }
+    }
+  }
+};
+
+const getPopupFeatures = (featuresArr) => {
   const popupFeatures = new Control(undefined, 'ul', 'popup__features');
 
   for (const feature of featuresArr) {
@@ -19,10 +31,10 @@ const getPopupFeaturesNode = (featuresArr) => {
     );
   }
 
-  return popupFeatures.node;
+  return popupFeatures;
 };
 
-const getPopupPhotosNode = (photosArr) => {
+const getPopupPhotos = (photosArr) => {
   const photos = new Control(
     undefined,
     'div',
@@ -41,10 +53,10 @@ const getPopupPhotosNode = (photosArr) => {
     popupPhoto.node.alt = 'Фотография жилья';
   }
 
-  return photos.node;
+  return photos;
 };
 
-const getCardNode = (cardDataObj) => {
+const getCard = (cardDataObj) => {
   const { author, offer, location } = cardDataObj;
 
   const card = new Control(undefined, 'div');
@@ -52,15 +64,13 @@ const getCardNode = (cardDataObj) => {
 
   const popup = new Control(card.node, 'article', 'popup');
 
-  if (author.avatar) {
-    const popupAvatar = new Control(popup.node, 'img', 'popup__avatar');
-    popupAvatar.node.src = author.avatar;
-    popupAvatar.node.width = 70;
-    popupAvatar.node.height = 70;
-    popupAvatar.node.alt = 'Аватар пользователя';
-  }
+  const popupAvatar = new Control(popup.node, 'img', 'popup__avatar');
+  popupAvatar.node.src = author.avatar;
+  popupAvatar.node.width = 70;
+  popupAvatar.node.height = 70;
+  popupAvatar.node.alt = 'Аватар пользователя';
 
-  const popupTitle = offer.title && new Control(
+  const popupTitle = new Control(
     popup.node,
     'h3',
     'popup__title',
@@ -81,7 +91,7 @@ const getCardNode = (cardDataObj) => {
     `${offer.price}  ₽/ночь`
   );
 
-  const popupType = offer.type && new Control(
+  const popupType = new Control(
     popup.node,
     'h4',
     'popup__type',
@@ -94,9 +104,6 @@ const getCardNode = (cardDataObj) => {
     'popup__text popup__text--capacity',
     `${offer.rooms} комнаты для ${offer.guests} гостей`
   );
-  if (!offer.rooms || !offer.guests) {
-    roomCapacity.node.classList.add('hidden');
-  }
 
   const regTime = new Control(
     popup.node,
@@ -104,14 +111,9 @@ const getCardNode = (cardDataObj) => {
     'popup__text popup__text--time',
     `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`
   );
-  if (!offer.checkin || !offer.checkout) {
-    regTime.node.classList.add('hidden');
-  }
 
-  if (offer.features.length > 0) {
-    const popupFeaturesNode = getPopupFeaturesNode(offer.features);
-    popup.node.append(popupFeaturesNode);
-  }
+  const popupFeatures = getPopupFeatures(offer.features);
+  popup.node.append(popupFeatures.node);
 
   const popupDescription = new Control(
     popup.node,
@@ -119,16 +121,28 @@ const getCardNode = (cardDataObj) => {
     'popup__description',
     offer.description
   );
-  if (!offer.description) {
-    popupDescription.node.classList.add('hidden');
-  }
 
-  if (offer.photos) {
-    const popupPhotosNode = getPopupPhotosNode(offer.photos);
-    popup.node.append(popupPhotosNode);
-  }
+  const popupPhotos = getPopupPhotos(offer.photos);
+  popup.node.append(popupPhotos.node);
 
-  return card.node;
+
+  const hidableElems = [
+    [popupAvatar, author.avatar],
+    [popupTitle, offer.title],
+    [popupTextAddress, offer.address],
+    [popupTextPrice, offer.price],
+    [popupType, offer.type],
+    [roomCapacity, offer.rooms, offer.guests],
+    [regTime, offer.checkin, offer.checkout],
+    [popupPhotos, offer.checkin, offer.checkout],
+    [popupFeatures, offer.features],
+    [popupDescription, offer.description],
+    [popupPhotos, offer.photos],
+  ];
+
+  hideEmpty(hidableElems);
+
+  return card;
 };
 
 const getCardsNodesArr = (cardsDataArr) => {
@@ -136,7 +150,7 @@ const getCardsNodesArr = (cardsDataArr) => {
   cardsNodesArr.length = cardsDataArr.length;
 
   cardsDataArr.forEach((cardDataItem, index) => {
-    const cardNode = getCardNode(cardDataItem);
+    const cardNode = getCard(cardDataItem).node;
     cardsNodesArr[index] = cardNode;
   });
 
