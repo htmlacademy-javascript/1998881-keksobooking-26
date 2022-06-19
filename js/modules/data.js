@@ -61,4 +61,4 @@ const getCard = () => {
   };
 };
 
-export const getCardsArr = (cardsCount) => Array.from({ length: cardsCount }, getCard);
+export const getCardsDataArr = (cardsCount) => Array.from({ length: cardsCount }, getCard);

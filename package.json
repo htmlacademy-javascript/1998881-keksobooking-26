@@ -28,9 +28,12 @@
     "npm": "8.x"
   },
   "dependencies": {
+    "@types/webpack-env": "^1.17.0",
     "css-loader": "^6.7.1",
     "html-loader": "^3.1.2",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.6.1"
+    "mini-css-extract-plugin": "^2.6.1",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.7.4"
   }
 }

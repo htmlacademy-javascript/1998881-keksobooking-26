@@ -8,7 +8,7 @@ const config = (args) => {
   return {
     mode: 'development',
     entry: {
-      index: './webpack-index.js',
+      index: './webpack-index.ts',
     },
     module: {
       rules: [
