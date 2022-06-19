@@ -29,6 +29,7 @@ const getPopupFeatures = (featuresArr) => {
       'li',
       `popup__feature popup__feature--${feature}`
     );
+    someFeature.doNothing();
   }
 
   return popupFeatures;
@@ -57,7 +58,7 @@ const getPopupPhotos = (photosArr) => {
 };
 
 const getCard = (cardDataObj) => {
-  const { author, offer, location } = cardDataObj;
+  const { author, offer } = cardDataObj;
 
   const card = new Control(undefined, 'div');
   card.setId('card');

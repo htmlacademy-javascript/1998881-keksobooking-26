@@ -1,8 +1,6 @@
 class Control {
-  node;
-
   constructor(parentNode, tagName, classNames, content) {
-    const elem = tagName 
+    const elem = tagName
       ? document.createElement(tagName)
       : document.createElement('div');
 
@@ -25,6 +23,8 @@ class Control {
   setId(idStr) {
     this.node.id = idStr;
   }
+
+  doNothing() {}
 
   destroy() {
     this.node.remove();
