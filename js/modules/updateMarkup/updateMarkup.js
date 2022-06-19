@@ -78,14 +78,14 @@ const getCard = (cardDataObj) => {
     offer.title
   );
 
-  const popupTextAddress = offer.address && new Control(
+  const popupTextAddress = new Control(
     popup.node,
     'p',
     'popup__text popup__text--address',
     offer.address
   );
 
-  const popupTextPrice = offer.price && new Control(
+  const popupTextPrice = new Control(
     popup.node,
     'p',
     'popup__text popup__text--price',
