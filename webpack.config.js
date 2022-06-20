@@ -2,9 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const config = (args) => {
-  // const { useJs } = args;
-
+const config = () => {
   return {
     mode: 'development',
     entry: {
@@ -28,7 +26,6 @@ const config = (args) => {
           test: /\.html$/i,
           loader: 'html-loader',
           options: {
-            // Disables attributes processing
             sources: false,
           },
         },
@@ -37,16 +34,6 @@ const config = (args) => {
           loader: 'ts-loader',
           options: { configFile: 'tsconfig.json' },
         },
-        // {
-        //   test: /\.m?js$/,
-        //   exclude: /node_modules/,
-        //   use: {
-        //     loader: 'babel-loader',
-        //     options: {
-        //       presets: [['@babel/preset-env', { targets: 'defaults' }]],
-        //     },
-        //   },
-        // },
         {
           test: /\.(json)$/,
           type: 'asset/source',
