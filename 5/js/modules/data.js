@@ -50,7 +50,7 @@ const getLocation = (locationLat, locationLng) => ({
   lng: locationLng,
 });
 
-const getCard = () => {
+export const getCardData = () => {
   const cardLocationLat = getRandomFloat(LOCATION_LAT.from, LOCATION_LAT.from, 5);
   const cardLocationLng = getRandomFloat(LOCATION_LNG.from, LOCATION_LNG.from, 5);
 
@@ -60,5 +60,3 @@ const getCard = () => {
     location: getLocation(cardLocationLat, cardLocationLng),
   };
 };
-
-export const getCardsDataArr = (cardsCount) => Array.from({ length: cardsCount }, getCard);
