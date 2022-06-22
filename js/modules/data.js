@@ -1,4 +1,4 @@
-import { getRandomArr, getRandomFloat, getRandomItem, getRandomInt, getTwoDigitStr } from './util.js';
+import { getRandomArr, getRandomFloat, getRandomItem, getRandomInt, getTwoDigitStr } from './util/helpers.js';
 
 const LOCATION_LAT = { from: 35.65000, to: 35.70000, };
 const LOCATION_LNG = { from: 139.70000, to: 139.80000, };
@@ -50,7 +50,7 @@ const getLocation = (locationLat, locationLng) => ({
   lng: locationLng,
 });
 
-const getCard = () => {
+export const getCardData = () => {
   const cardLocationLat = getRandomFloat(LOCATION_LAT.from, LOCATION_LAT.from, 5);
   const cardLocationLng = getRandomFloat(LOCATION_LNG.from, LOCATION_LNG.from, 5);
 
@@ -60,5 +60,3 @@ const getCard = () => {
     location: getLocation(cardLocationLat, cardLocationLng),
   };
 };
-
-export const getCardsArr = (cardsCount) => Array.from({ length: cardsCount }, getCard);

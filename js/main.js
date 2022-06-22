@@ -1,8 +1,6 @@
-import { getCardsArr } from './modules/data.js';
+import { updateMarkup } from './modules/updateMarkup/updateMarkup.js';
 
 const main = () => {
-  const CARDS_COUNT = 10;
-  const cardsArr = getCardsArr(CARDS_COUNT);
-  console.log('cardsArr: ', cardsArr);
+  updateMarkup();
 };
 main();
