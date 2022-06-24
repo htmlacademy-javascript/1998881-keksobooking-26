@@ -3,7 +3,7 @@ import { updateMarkup } from './modules/updateMarkup/updateMarkup.js';
 
 const main = () => {
   updateMarkup();
-  
+
   const nodesToToggle = getNodes();
   makeInactive(nodesToToggle);
 };

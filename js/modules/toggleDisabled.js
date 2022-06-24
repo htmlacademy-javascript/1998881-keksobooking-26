@@ -3,11 +3,15 @@ export const getNodes = () => {
   const mapFiltersNode = document.querySelector('.map__filters');
   const children = [...adFormNode.children, ...mapFiltersNode.children];
 
-  return [adFormNode, mapFiltersNode, children];
+  return {
+    adFormNode: adFormNode,
+    mapFiltersNode: mapFiltersNode,
+    children: children,
+  };
 };
 
 const updateClasses = (nodesToToggle, operation) => {
-  const [adFormNode, mapFiltersNode, children] = nodesToToggle;
+  const { adFormNode, mapFiltersNode, children } = nodesToToggle;
 
   adFormNode.classList[operation]('ad-form--disabled');
   mapFiltersNode.classList[operation]('map__filters--disabled');
